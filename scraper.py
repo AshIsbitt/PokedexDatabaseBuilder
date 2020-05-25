@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 
-wiki_page_pkmn_name = "Charmander"
+wiki_page_pkmn_name = "Bulbasaur"
 
 #Get the HTML of the bulbapedia page for the pokemon specified in the wiki_page_pkmn_name var
 source = requests.get('https://bulbapedia.bulbagarden.net/wiki/' + wiki_page_pkmn_name + '_(Pokémon)').text
@@ -28,7 +28,9 @@ def get_pkmn_name():
 def get_pkmn_types():
 	types = []
 
-	
+	for item in soup.find_all('td', width='45px'):
+		item.next_element
+		print(item)
 
 def get_pkmn_height():
 	pass

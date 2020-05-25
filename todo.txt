@@ -3,3 +3,17 @@
 - locate required pieces of data
 - Pull down to local machine
 - Store data in database
+
+
+Database headings
+-----------------
+- pokedex ID (primary key?)
+- Name
+- Type1
+- Type2
+- EvolvesAt
+- EvolvesInto
+- EvolvesFrom
+- EvolvesFromlvl
+- Height
+- Weight

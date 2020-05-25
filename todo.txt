@@ -1,0 +1,5 @@
+- Connect to Bulbapedia
+- Navigate to each pokemon's page
+- locate required pieces of data
+- Pull down to local machine
+- Store data in database

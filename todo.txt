@@ -7,7 +7,7 @@
 
 Database headings
 -----------------
-- pokedex ID (primary key?)
+- pokedex ID
 - Name
 - Type1
 - Type2

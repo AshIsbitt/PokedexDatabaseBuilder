@@ -6,7 +6,7 @@ import sqlalchemy
 
 wiki_home_page = "http://bulbapedia.bulbagarden.net"
 pokedex_list_page = wiki_home_page + "/wiki/List_of_Pokémon_by_National_Pokédex_number"
-pkmn_stats = [ 'id', 
+pkmn_stats = [ 	'id', 
 				'name', 
 				'type', 
 				'abilities', 
@@ -42,8 +42,35 @@ def getPokemonData(inputUrl):
 	htmldata = requests.get(wiki_home_page + inputUrl)
 	soup = bs(htmldata.txt, 'lxml')
 
-	
+	# Pokemon ID
+	pkmn_data.append((soup.select( 'th big a[href*="mon_by_National_Pok"] span' ).get_text().replace('#', ''))
 
+	#Pokemon name
+	pkmn_data.append(soup.find('h1', class_='firstHeading').text[:-9])
+
+	#Pokemon types
+	pkmn_types = []
+
+	for x in soup.select('a[href*="(type)"] span b'):
+		pkmn_types.append(('a[href*="(type)"] span b').get_text())
+
+	pkmn_data.append(pkmn_types)
+
+	#Pokemon Abilities
+
+	#Base Stats
+	# Not sure how 'td table[cellspacing="0"] tr th' works, but I'm not questioning it
+	pkmn_data.append((soup.select( 'td table[cellspacing="0"] tr th' )[ 1 ].get_text()))
+	pkmn_data.append((soup.select( 'td table[cellspacing="0"] tr th' )[ 3 ].get_text()))
+	pkmn_data.append((soup.select( 'td table[cellspacing="0"] tr th' )[ 5 ].get_text()))
+	pkmn_data.append((soup.select( 'td table[cellspacing="0"] tr th' )[ 7 ].get_text()))
+	pkmn_data.append((soup.select( 'td table[cellspacing="0"] tr th' )[ 9 ].get_text()))
+	pkmn_data.append((soup.select( 'td table[cellspacing="0"] tr th' )[ 11 ].get_text()))
+	pkmn_data.append((soup.select( 'td table[cellspacing="0"] tr th' )[ 13 ].get_text()))
+
+	#Weight
+
+	#Height
 
 def allPokemonStats():
 	pass

@@ -29,7 +29,7 @@ def getPokemonUrls():
 	pkmn_link_list = []
 
 	listOfUrls = requests.get(pokedex_list_page)
-	soup = bs(listOfUrls.text, "html.parser")
+	soup = bs(listOfUrls.text, 'html.parser')
 
 	for a in soup.select('table[align="center"] td a[title*="Pok"]'):
 		pkmn_link_list.append(a.attrs.get('href'))
@@ -40,10 +40,10 @@ def getPokemonUrls():
 def getPokemonData(inputUrl):
 	pkmn_data = []
 	htmldata = requests.get(wiki_home_page + inputUrl)
-	soup = bs(htmldata.txt, 'html.parser')
+	soup = bs('htmldata.txt', 'html.parser')
 
 	# Pokemon ID
-	pkmn_data.append(soup.select( 'th big a[href*="mon_by_National_Pok"] span' ).get_text().replace('#', ''))
+	pkmn_data.append(soup.select( 'th big a[href*="mon_by_National_Pok"] span' ).text().replace('#', ''))
 
 	#Pokemon name
 	pkmn_data.append(soup.find('h1', class_='firstHeading').text[:-9])
@@ -84,6 +84,12 @@ def getPokemonData(inputUrl):
 	pkmn_data.append(float(((height_stat.select( 'table tr td' )[ 1 ].get_text())[:-4])))
 
 	#EvolveLine
+	current_form = soup.select('tbody tr td a[class="mw-selflink selflink"]').parent.parent.parent.parent
+	prev_level = current_form.previous_sibling.select('a[href*="Level"')
+
+	next_forms = []
+
+
 
 	return pkmn_data
 

@@ -43,7 +43,9 @@ def getPokemonData(inputUrl):
 	soup = bs('htmldata.txt', 'html.parser')
 
 	# Pokemon ID
-	pkmn_data.append(soup.select( 'th big a[href*="mon_by_National_Pok"] span' ).text().replace('#', ''))
+	print(soup.select('th big a[href*="mon_by_National_Pok"] span')[0])
+
+	# pkmn_data.append(soup.select('th big big a[href*="mon_by_National_Pok"] span')[0].get_text().replace('#', ''))
 
 	#Pokemon name
 	pkmn_data.append(soup.find('h1', class_='firstHeading').text[:-9])

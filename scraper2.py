@@ -70,25 +70,36 @@ def getPokemonData(inputUrl):
 	#Pokemon Abilities
 	pkmn_abilities = []
 
-	for x in (soup.select('td a[href*=(Ability)] span')):
-		if soup.select('td a[href*=(Ability)] span')[x].get_text() != "Cacaphony":
-			pkmn_abilities.append(soup.select('td a[href*=(Ability)] span')[x].get_text())
+	for x in range(0, len(soup.select('td a[href*="(Ability)"] span'))):
+		abilitytext = str(soup.select('td a[href*="(Ability)"] span')[x])[26:-7]
+		
+		if abilitytext != "Cacophony":
+			pkmn_abilities.append(abilitytext)
 
+	print(pkmn_abilities)
 	pkmn_data.append(pkmn_abilities)
 
 	#Base Stats
-	# Not sure how 'td table[cellspacing="0"] tr th' works, but I'm not questioning it
-	pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[1].get_text()))
-	pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[3].get_text()))
-	pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[5].get_text()))
-	pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[7].get_text()))
-	pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[9].get_text()))
-	pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[11].get_text()))
-	pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[13].get_text()))
+	#print((soup.select('table[style="background\\: #78C850"] tbody tr[style*="background\\: "] th[style*="width\\:85px"] div[style="float\\:right"]')[1]))
+
+	trs = soup.find_all("table", {'style': "table[style=\"background\\: #78C850\"] tbody tr[style*=\"background\\: \"] th[style*=\"width\\:85px\"] div[style=\"float\\:right\"]"})
+
+	for tr in trs:
+ 		print(tr["style"])
+
+
+	# pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[1].get_text()))
+	# pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[3].get_text()))
+	# pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[5].get_text()))
+	# pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[7].get_text()))
+	# pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[9].get_text()))
+	# pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[11].get_text()))
+	# pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[13].get_text()))
 
 	#Weight
 	weight_stat = soup.select('table.roundy tr td.roundy b a[href*="weight"]')[ 0 ].parent.parent
-	pkmn_data.append(float(((weight_stat.select( 'table tr td' )[ 1 ].get_text())[:-4])))
+	weight = (float(((weight_stat.select( 'table tr td' )[ 1 ].get_text())[:-4])))
+	print(weight)
 
 	#Height
 	height_stat = soup.select('table.roundy tr td.roundy b a[href*="height"]')[ 0 ].parent.parent

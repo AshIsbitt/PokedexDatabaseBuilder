@@ -57,9 +57,13 @@ def getPokemonData(inputUrl):
 	#Pokemon types
 	pkmn_types = []
 
-	for x in str(soup.select('a[href*="(type)"] span b')):
-		print(x)
-		pkmn_types.append(str(soup.select('a[href*="(type)"] span b'))
+	for x in range(0,2):
+		typetext = str(soup.select('a[href*="(type)"] span b')[x])[3:-4]
+
+		if typetext != "Unknown":
+			pkmn_types.append(typetext)
+
+	print(pkmn_types)
 
 	pkmn_data.append(pkmn_types)
 
@@ -107,4 +111,4 @@ def writeToDB():
 	pass
 
 
-getPokemonData("/wiki/Charmander_(Pokémon)")
+getPokemonData("/wiki/Venusaur_(Pokémon)")

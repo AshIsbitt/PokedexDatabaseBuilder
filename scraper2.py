@@ -40,21 +40,26 @@ def getPokemonUrls():
 def getPokemonData(inputUrl):
 	pkmn_data = []
 	htmldata = requests.get(wiki_home_page + inputUrl)
-	soup = bs('htmldata.txt', 'html.parser')
+	soup = bs(htmldata.text, 'html.parser')
 
 	# Pokemon ID
-	print(soup.select('th big a[href*="mon_by_National_Pok"] span')[0])
+	idnum = str(soup.select('th big a[href*="mon_by_National_Pok"] ')[0])
+	idnum = idnum[-14:-11]
+	print(idnum)
 
-	# pkmn_data.append(soup.select('th big big a[href*="mon_by_National_Pok"] span')[0].get_text().replace('#', ''))
+	pkmn_data.append(idnum)
 
 	#Pokemon name
-	pkmn_data.append(soup.find('h1', class_='firstHeading').text[:-9])
+	pkmn_name = soup.find('h1', class_='firstHeading').text[:-9]
+	print(pkmn_name)
+	pkmn_data.append(pkmn_name)
 
 	#Pokemon types
 	pkmn_types = []
 
-	for x in soup.select('a[href*="(type)"] span b'):
-		pkmn_types.append(('a[href*="(type)"] span b')[x].get_text())
+	for x in str(soup.select('a[href*="(type)"] span b')):
+		print(x)
+		pkmn_types.append(str(soup.select('a[href*="(type)"] span b'))
 
 	pkmn_data.append(pkmn_types)
 

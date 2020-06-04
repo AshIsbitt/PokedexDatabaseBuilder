@@ -81,11 +81,10 @@ def getPokemonData(inputUrl):
 
 	#Base Stats
 	#print((soup.select('table[style="background\\: #78C850"] tbody tr[style*="background\\: "] th[style*="width\\:85px"] div[style="float\\:right"]')[1]))
-
-	trs = soup.find_all("table", {'style': "table[style=\"background\\: #78C850\"] tbody tr[style*=\"background\\: \"] th[style*=\"width\\:85px\"] div[style=\"float\\:right\"]"})
-
-	for tr in trs:
- 		print(tr["style"])
+	table = soup.find_all('table[style*="background: #78C850; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; -khtml-border-radius: 10px; -icab-border-radius: 10px; -o-border-radius: 10px;; border: 3px solid #A040A0; white-space:nowrap"]')
+	table_rows = table.find('tr[style="background: #FF5959; text-align:center"]')
+	stat = table_rows.find('div[style="float:right"]')
+	print(stat)
 
 
 	# pkmn_data.append((soup.select('td table[cellspacing="0"] tr th')[1].get_text()))
